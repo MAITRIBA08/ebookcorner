@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>E-Book: Learn Web Basics</title>
+  <link rel="icon" type="image2/jpg" href="image2.jpg">
+
+  <!-- Internal CSS -->
+  <style>
+    :root {
+        box-shadow: rgb(188, 12, 47);
+      --primary: #0d0f12;
+      --dark: #0d1b2a;
+      --text: #233142;
+      --muted: #191a1b;
+      --bg: #202124;
+      --white: #ffffff;
+      --accent: #ffb703;
+    }
+
+    * { box-sizing: border-box; }
+    body {        
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: rgb(23, 219, 245);
+      background-color:lightcoral; 
+      line-height: 1.6;
+    }
+
+    /* Simple container for consistent layout */
+    .container {
+      width: 92%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Header / Nav */
+    header {
+      background: var(--white);
+      border-bottom: 1px solid #166ad9;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+    }
+    .brand {
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: 0.5px;
+    }
+    .nav a {
+      color: var(--text);
+      text-decoration: none;
+      margin-left: 18px;
+      font-size: 0.95rem;
+    }
+    .nav a:hover { color: var(--primary); }
+
+    /* Hero section: conversion focus */
+    .hero {
+      padding: 54px 0 42px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: center;
+    }
+    .hero h1 {
+      font-size: 2rem;
+      color: var(--dark);
+      margin: 0 0 10px;
+    }
+    .hero p {
+      color: var(--muted);
+      margin: 0 0 16px;
+    }
+    .badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 12px 0 22px;
+    }
+    .badge {
+      font-size: 0.8rem;
+      padding: 6px 10px;
+      border: 1px solid #dbe5f0;
+      border-radius: 20px;
+      background: var(--white);
+      color: var(--text);
+    }
+    .cta-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .btn {
+      border: none;
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: transform 0.05s ease-in-out, box-shadow 0.15s;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 8px 14px rgba(30,136,229,0.18);
+    }
+    .btn-primary:hover { transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 1.5px solid var(--primary);
+    }
+    .book-card {
+      background: var(--white);
+      border: 1px solid #e6ecf3;
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(13,27,42,0.06);
+    }
+    .book-cover {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 8px;
+      border: 1px dashed #cfd9e6;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+      background: linear-gradient(135deg, #f3f7fc 0%, #ffffff 100%);
+    }
+    .price {
+      margin-top: 12px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    .secure {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    /* Value proposition section */
+    .section {
+      padding: 40px 0;
+    }
+    .section h2 {
+      font-size: 1.5rem;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 16px;
+    }
+    .feature {
+      background: var(--white);
+      border: 1px solid #e6ecf3;
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .feature h3 {
+      margin: 0 0 6px;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+    .feature p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    /* Trust & credibility */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-top: 14px;
+    }
+    .card {
+      background: var(--white);
+      border: 1px solid #e6ecf3;
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .author {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #cfd9e6;
+      display: grid;
+      place-items: center;
+      color: var(--white);
+      font-weight: 700;
+    }
+    .stars {
+      color: #f4b400;
+      letter-spacing: 1px;
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+    }
+    .quote {
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--white);
+      border-top: 1px solid #e6ecf3;
+      margin-top: 40px;
+    }
+    .footer-inner {
+      padding: 18px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 14px;
+    }
+    .footer-links a:hover { color: var(--primary); }
+
+    /* Responsive tweaks */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .features { grid-template-columns: 1fr 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .features { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header: simple nav -->
+  <header>
+    <div class="container nav">
+      <div class="brand">E-Book by Rathod</div>
+      <nav>
+        <a href="#value">Benefits</a>
+        <a href="#trust">Trust</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero: conversion focus -->
+  <section class="container hero">
+    <div>
+      <h1>" welcome to the e-book corner "</h1>
+    </div>
+    <div>
+     <a href="logincss.html"> "login to the website" </a>
+    </div>
+    <div>
+      <h1>Learn Web Basics with a Practical E‑Book</h1>
+      <p>Kickstart your web journey with clear examples in HTML, CSS, and basic JavaScript. No heavy theory—just hands‑on, student‑friendly guidance.</p>
+ 
+    
+      <div class="badges">
+        <span class="badge">Beginner‑friendly</span>
+        <span class="badge">Project‑ready</span>
+        <span class="badge">Updated for BCA 1st sem</span>
+      </div>
+
+      <div class="cta-group">
+        <button class="btn btn-primary" id="ctaBuy">Get the eBook</button>
+        <button class="btn btn-outline" id="ctaPreview">Preview sample</button>
+      </div>
+
+      <div class="secure">
+        <!-- simple lock icon using CSS text -->
+        <span>🔒</span>
+        <span>Secure download • No spam</span>
+      </div>
+    </div>
+
+    <aside class="book-card">
+      <div class="book-cover">
+        <!-- Placeholder cover: looks hand-made -->
+        <div>
+           <img src="image2.jpg" alt="E-Book cover"> 
+          <div style="font-weight:700; color:#1e88e5;">WEB BASICS</div>
+          <div style="font-size:0.9rem; color:#6b778d;">HTML • CSS • JS</div>
+          <div style="margin-top:8px; font-size:0.8rem;">E‑Book by Rathod</div>
+        </div>
+      </div>
+      <div class="price">₹199</div>
+      <button class="btn btn-primary" id="ctaBuyCard" style="margin-top:10px;">Buy now</button>
+      <div class="secure" style="justify-content:center;">
+        <span>✅</span><span>Instant access after purchase</span>
+      </div>
+    </aside>
+  </section>
+
+  <!-- Value proposition -->
+  <section class="section container" id="value">
+    <h2>What you’ll learn</h2>
+    <p class="muted">Focused content and clear value to help you build your first website confidently.</p>
+
+    <div class="features">
+      <div class="feature">
+        <h3>HTML structure</h3>
+        <p>Build clean pages with semantic tags, headings, lists, links, and forms.</p>
+      </div>
+      <div class="feature">
+        <h3>CSS styling</h3>
+        <p>Create layouts, choose colors, and make pages look professional without frameworks.</p>
+      </div>
+      <div class="feature">
+        <h3>Basic JavaScript</h3>
+        <p>Add simple interactions—buttons, modals, validation—to make your site feel alive.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust & credibility -->
+  <section class="section container" id="trust">
+    <h2>Trusted by students</h2>
+    <div class="grid-2">
+      <div class="card">
+        <div class="author">
+          <div class="avatar">R</div>
+          <div>
+            <strong>Author: Rathod</strong><br/>
+            <span class="muted" style="color:#6b778d;">BCA 1st Sem • Marwadi University</span>
+          </div>
+        </div>
+        <p>I wrote this e‑book from a student’s perspective—short chapters, practical tasks, and code you can actually use.</p>
+      </div>
+
+      <div class="card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">“Clear explanations and no fluff. I built my first homepage in a weekend.”</p>
+        <p class="quote">“The JavaScript part is simple enough to understand and apply.”</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Simple contact / footer -->
+  <footer id="contact">
+    <div class="container footer-inner">
+      <div>© 2025 E‑Book by Rathod</div>
+      <div class="footer-links">
+        <a href="#value">Benefits</a>
+        <a href="#trust">Trust</a>
+        <a href="#" id="contactLink">Email me</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Internal JavaScript -->
+  <script>
+    // Basic conversion focus: clicking Buy shows a simple confirmation modal
+    // and simulates a checkout (no external resources).
+
+    // Utility: create a simple modal
+    function showModal(title, message, okText, onOk) {
+      const backdrop = document.createElement('div');
+      backdrop.style.position = 'fixed';
+      backdrop.style.inset = '0';
+      backdrop.style.background = 'rgba(13,27,42,0.45)';
+      backdrop.style.display = 'grid';
+      backdrop.style.placeItems = 'center';
+      backdrop.style.zIndex = '999';
+
+      const modal = document.createElement('div');
+      modal.style.width = '92%';
+      modal.style.maxWidth = '420px';
+      modal.style.background = '#ffffff';
+      modal.style.border = '1px solid #e6ecf3';
+      modal.style.borderRadius = '12px';
+      modal.style.boxShadow = '0 12px 36px rgba(13,27,42,0.25)';
+      modal.style.padding = '18px';
+
+      const h = document.createElement('h3');
+      h.textContent = title;
+      h.style.margin = '0 0 8px';
+      h.style.color = '#0d1b2a';
+
+      const p = document.createElement('p');
+      p.textContent = message;
+      p.style.margin = '0 0 14px';
+      p.style.color = '#6b778d';
+
+      const row = document.createElement('div');
+      row.style.display = 'flex';
+      row.style.justifyContent = 'flex-end';
+      row.style.gap = '10px';
+
+      const cancel = document.createElement('button');
+      cancel.textContent = 'Cancel';
+      cancel.className = 'btn btn-outline';
+
+      const ok = document.createElement('button');
+      ok.textContent = okText || 'Continue';
+      ok.className = 'btn btn-primary';
+
+      cancel.addEventListener('click', () => document.body.removeChild(backdrop));
+      ok.addEventListener('click', () => { 
+        document.body.removeChild(backdrop);
+        if (typeof onOk === 'function') onOk();
+      });
+
+      row.appendChild(cancel);
+      row.appendChild(ok);
+      modal.appendChild(h);
+      modal.appendChild(p);
+      modal.appendChild(row);
+      backdrop.appendChild(modal);
+      document.body.appendChild(backdrop);
+    }
+
+    // Simulated checkout: just shows success and logs
+    function startCheckout() {
+      showModal('Checkout', 'You are buying “E‑Book: Learn Web Basics” for ₹199.', 'Pay ₹199', function () {
+        showModal('Success', 'Payment confirmed. Your download link is now available.', 'Get download', function () {
+          // Simulate a download URL creation
+          const link = document.createElement('a');
+          link.href = '#img.jpg';
+          link.textContent = 'Download your e‑book (PDF)';
+          link.style.display = 'inline-block';
+          link.style.marginTop = '10px';
+          link.style.color = '#1e88e5';
+
+          // Place link under the hero secure note for visibility
+          const hero = document.querySelector('.hero .secure');
+          hero.appendChild(link);
+          console.log('Download ready');
+        });
+      });
+    }
+
+    // Preview sample handler
+    function showPreview() {
+      showModal('Preview', 'Sample includes HTML tags, a basic CSS card, and a click button in JS.', 'Open sample', function () {
+        alert('Sample: <h1>, <p>, .card CSS, and a JS click handler.');
+      });
+    }
+
+    // Contact link handler
+    function contactMe() {
+      alert('You can reach me via email: rathod@example.com');
+    }
+
+    // Wire up buttons
+    document.getElementById('ctaBuy').addEventListener('click', startCheckout);
+    document.getElementById('ctaBuyCard').addEventListener('click', startCheckout);
+    document.getElementById('ctaPreview').addEventListener('click', showPreview);
+    document.getElementById('contactLink').addEventListener('click', function (e) {
+      e.preventDefault();
+      contactMe();
+    });
+  </script>
+</body>
+</html>
